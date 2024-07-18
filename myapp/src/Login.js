@@ -28,7 +28,7 @@ const Login = () => {
       e.preventDefault();
     } else {
       axios
-        .post("http://localhost:3333/signin", { email2, password2 })
+        .post("https://gptmax-mern-backend.onrender.com/signin", { email2, password2 })
         .then((result) => {
           console.log(result);
           if (result.data === "Success") {
