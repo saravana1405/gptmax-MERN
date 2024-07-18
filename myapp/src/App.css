@@ -998,6 +998,12 @@
   color: white;
   background: none;
 }
+#issue{
+  position: relative;
+  left: 25vw;
+  font-family: 'Poppins';
+  color: #8e1414;
+}
 
 
 

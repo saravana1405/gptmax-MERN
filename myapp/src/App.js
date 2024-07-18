@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import "./App.css";
 import Swal from "sweetalert2";
 import { FaPenNib, FaPlus, FaUser } from "react-icons/fa6";
@@ -15,7 +15,7 @@ import SpeechRecognition, {
 import useClipboard from "react-use-clipboard";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const API_KEY = "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";
+const API_KEY = "";
 // "Explain things like you would to a 10 year old learning how to code.";
 const systemMessage = {
   role: "system",
@@ -39,8 +39,8 @@ function App() {
       choice: "what are the importance of AI and machine learning",
     },
   ]);
-  const [menuchange, setMenuChange] = useState(false);
   const [textToCopy, setTextToCopy] = useState();
+  const [issue,setIssue] = useState(false)
   const [val, setVal] = useState("");
   const [isTyping, setIsTyping] = useState(false);
   const [show, setshow] = useState(false);
@@ -67,7 +67,7 @@ function App() {
       return 0;
     }
     await addItem(val);
-    await handleSend(val);
+    await handleSend();
   }
 
   const handlepress = (e) => {
@@ -75,60 +75,11 @@ function App() {
       handlesubmit();
     }
   };
-  const handleSend = async (message) => {
+  const handleSend = async () => {
+    setIssue(true)
     setIsTyping(false);
     setVal("");
-    ref.current.focus();
-    const newMessage = {
-      message,
-      direction: "outgoing",
-      sender: "user",
-    };
-    const newMessages = [...messages, newMessage];
-    setMessages(newMessages);
-    setIsTyping(true);
-    await processMessageToChatGPT(newMessages);
-  };
-
-  async function processMessageToChatGPT(chatMessages) {
-    let apiMessages = chatMessages.map((messageObject) => {
-      let role = "";
-      if (messageObject.sender === "ChatGPT") {
-        role = "assistant";
-      } else {
-        role = "user";
-      }
-      return { role: role, content: messageObject.message };
-    });
-
-    const apiRequestBody = {
-      model: "gpt-3.5-turbo",
-      messages: [systemMessage, ...apiMessages],
-    };
-
-    await fetch("https://api.openai.com/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + API_KEY,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiRequestBody),
-    })
-      .then((data) => {
-        return data.json();
-      })
-      .then((data) => {
-        console.log(data.choices[0].message.content);
-        setMessages([
-          ...chatMessages,
-          {
-            message: data.choices[0].message.content,
-            sender: "ChatGPT",
-          },
-        ]);
-      });
   }
-
   const navi = useNavigate();
   const startListening = () =>
     SpeechRecognition.startListening({ continuous: true, language: "en-IN" });
@@ -205,6 +156,7 @@ function App() {
               <h1>How Can I Help You Today ?</h1>
             </div>
           )}
+          {!issue ? 
           <MessageList className="msg">
             {messages.map((message, i) => {
               return (
@@ -221,6 +173,7 @@ function App() {
               );
             })}
           </MessageList>
+           : <p id="issue"><span>OOPs!..</span><br /> Something Issue , Please Try Later...</p> }
           <div className="textbox">
             <input
               type="text"
