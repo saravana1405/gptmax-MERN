@@ -7,7 +7,6 @@ import { IoClose, IoLogOut, IoMenu, IoMic } from "react-icons/io5";
 import { MessageList, Message } from "@chatscope/chat-ui-kit-react";
 import chatgptLogo from "./assets/chatgpt.svg";
 import { IoMdSend } from "react-icons/io";
-import gptlogo from "./assets/chatgptLogo.svg";
 import { Link } from "react-router-dom";
 import SpeechRecognition, {
   useSpeechRecognition,
