@@ -23,27 +23,27 @@ const ImageGenerator = () => {
       return false;
     }
     setIsLoading(true);
-    const response = await fetch(
-      "https://api.openai.com/v1/images/generations",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization:
-            "Bearer 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",
-          "User-Agent": "Chrome",
-        },
-        body: JSON.stringify({
-          prompt: `${inputref.current.value}`,
-          n: 1,
-          size: "256x256",
-        }),
-      }
-    );
-    const data = await response.json();
-    const image = data.data[0].url;
-    setImgUrl(image);
-    setIsLoading(false);
+    // const response = await fetch(
+    //   "https://api.openai.com/v1/images/generations",
+    //   {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //       Authorization:
+    //         "Bearer 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",
+    //       "User-Agent": "Chrome",
+    //     },
+    //     body: JSON.stringify({
+    //       prompt: `${inputref.current.value}`,
+    //       n: 1,
+    //       size: "256x256",
+    //     }),
+    //   }
+    // );
+    // const data = await response.json();
+    // const image = data.data[0].url;
+    // setImgUrl(image);
+    // setIsLoading(false);
   };
   return (
     <div className="imagegen">

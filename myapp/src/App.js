@@ -15,7 +15,6 @@ import SpeechRecognition, {
 import useClipboard from "react-use-clipboard";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-const API_KEY = "";
 // "Explain things like you would to a 10 year old learning how to code.";
 const systemMessage = {
   role: "system",
