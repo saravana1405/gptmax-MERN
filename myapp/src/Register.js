@@ -45,7 +45,7 @@ const Register = () => {
         e.preventDefault()
       }
       else{
-        axios.post('http://localhost:3333/signup',{username,email,phone,password})
+        axios.post('https://gptmax-mern-backend.onrender.com/signup',{username,email,phone,password})
         .then(result => console.log(result))
         .catch(err => console.log(err));
         setError('')
